@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#080b10">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Blitz IQ">
-<title>Blitz IQ</title>
+<meta name="apple-mobile-web-app-title" content="Two-Minute Drill">
+<title>Two-Minute Drill — Daily NFL Trivia</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <!-- Vercel Web Analytics (privacy-friendly visitor stats) -->
@@ -79,8 +79,8 @@
 
   .logo {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 34px;
-    letter-spacing: 2px;
+    font-size: 27px;
+    letter-spacing: 1px;
     color: #fff;
     line-height: 1;
   }
@@ -923,7 +923,7 @@
   }
 
   @media (max-width: 420px) {
-    .logo { font-size: 28px; }
+    .logo { font-size: 20px; }
     .q-text { font-size: 22px; }
     .opt { padding: 14px 10px; font-size: 13px; min-height: 52px; }
     .bet-btn { padding: 16px 6px 12px; min-height: 68px; }
@@ -940,7 +940,7 @@
 
 <div class="app">
   <header>
-    <div class="logo">BLITZ <span class="iq">IQ</span></div>
+    <div class="logo">TWO-MINUTE <span class="iq">DRILL</span></div>
     <div class="header-meta">
       <span class="date-tag" id="dateBadge"></span>
       <span class="q-tag" id="qTag">Q1 / 5</span>
@@ -1047,7 +1047,7 @@
     </div>
     <button class="share-btn" onclick="doShare()">📋 Copy Result</button>
     <button class="reset-btn" onclick="resetGame()">↩ Play Again (Demo)</button>
-    <div class="comeback-note">Next Blitz IQ in</div>
+    <div class="comeback-note">Next drill in</div>
     <div class="countdown" id="countdown">--:--:--</div>
   </div>
 </div>
@@ -1739,7 +1739,7 @@ function doShare() {
   const keycaps = { 1: '1️⃣', 2: '2️⃣', 3: '3️⃣' };
   const squares = history.map(h => h.correct ? '🟩' : '🟥').join('');
   const betsRow = history.map(h => keycaps[h.bet]).join('');
-  const text = `Blitz IQ #${n} ${score}/15\n\n${squares}\n${betsRow}\n\nblitz-iq.vercel.app`;
+  const text = `Two-Minute Drill #${n} ${score}/15\n\n${squares}\n${betsRow}\n\ntwominutedrill.app`;
   navigator.clipboard.writeText(text).then(() => {
     const t = document.getElementById('toast');
     t.classList.add('show');
