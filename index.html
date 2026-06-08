@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Two-Minute Drill">
-<title>Two-Minute Drill — Daily NFL Trivia</title>
+<title>Two-Minute Drill: Daily NFL Trivia</title>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <!-- Vercel Web Analytics (privacy-friendly visitor stats) -->
@@ -19,10 +19,10 @@
     --bg: #ffffff;
     --bg2: #ffffff;
     --bg3: #f3f4f6;
-    --accent: #6aaa64;
+    --accent: #2563eb;
     --danger: #d64550;
     --gold: #c9a227;
-    --green: #6aaa64;
+    --green: #2563eb;
     --border: #d3d6da;
     --text: #1a1a1b;
     --muted: #787c7e;
@@ -272,9 +272,9 @@
   }
 
   .opt.reveal {
-    background: #eef6ed;
+    background: #eef2fe;
     border-color: var(--green);
-    color: #43803d;
+    color: #1d4ed8;
     font-weight: 700;
   }
 
@@ -398,8 +398,8 @@
   .result-flash.show { display: block; }
 
   .result-flash.correct {
-    background: rgba(0,230,118,0.1);
-    border: 1px solid rgba(0,230,118,0.25);
+    background: rgba(37,99,235,0.08);
+    border: 1px solid rgba(37,99,235,0.22);
   }
 
   .result-flash.wrong {
@@ -436,7 +436,7 @@
   }
 
   .next-btn.show { display: block; animation: flashIn 0.25s ease; }
-  .next-btn:hover { background: #5d9657; }
+  .next-btn:hover { background: #1d4ed8; }
 
   /* RESULTS */
   .results {
@@ -563,7 +563,7 @@
     margin-bottom: 10px;
   }
 
-  .share-btn:hover { background: #5d9657; }
+  .share-btn:hover { background: #1d4ed8; }
 
   .reset-btn {
     background: transparent;
@@ -696,7 +696,7 @@
     cursor: pointer;
     margin-top: 4px;
   }
-  .auth-send:hover { background: #5d9657; }
+  .auth-send:hover { background: #1d4ed8; }
   .auth-msg { font-size: 13px; color: var(--green); margin-top: 12px; text-align: center; min-height: 18px; }
   .auth-msg.err { color: var(--danger); }
   .auth-close {
@@ -722,7 +722,7 @@
     background: var(--bg3);
     margin-bottom: 6px;
   }
-  .lb-row.me { border: 1px solid var(--accent); background: rgba(106,170,100,0.10); }
+  .lb-row.me { border: 1px solid var(--accent); background: rgba(37,99,235,0.08); }
   .lb-rank {
     font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 18px;
@@ -972,7 +972,7 @@
 
     <div class="bet-section" id="betSection">
       <div class="bet-header">
-        <div class="bet-lbl">Your confidence — wrong answer loses these points</div>
+        <div class="bet-lbl">Set your confidence. A wrong answer loses these points.</div>
         <div class="bet-warning" id="betWarning">Pick first!</div>
       </div>
       <div class="bet-btns">
@@ -1644,7 +1644,7 @@ function getVerdict() {
   const allLowBet = history.every(h => h.bet === 1);
 
   if (allCorrect && allHighBet) return { label: "SICKO MODE", desc: "5/5 correct + all locks called", color: "#b8901f" };
-  if (allCorrect) return { label: "CLEAN SHEET", desc: "Perfect — no misses", color: "#3a8a34" };
+  if (allCorrect) return { label: "CLEAN SHEET", desc: "Perfect, no misses", color: "#2563eb" };
   if (score >= 11) return { label: "SHARP", desc: "Elite football IQ", color: "#2f6fb3" };
   if (score >= 7) return { label: "SOLID", desc: "Knows the game", color: "#3a7ca5" };
   if (score >= 3) return { label: "CASUAL", desc: "Fan, not a student", color: "#787c7e" };
