@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#080b10">
+<meta name="theme-color" content="#ffffff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Two-Minute Drill">
 <title>Two-Minute Drill — Daily NFL Trivia</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <!-- Vercel Web Analytics (privacy-friendly visitor stats) -->
 <script defer src="/_vercel/insights/script.js"></script>
@@ -16,22 +16,22 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #080b10;
-    --bg2: #0e1219;
-    --bg3: #141820;
-    --accent: #00e5ff;
-    --danger: #ff2d55;
-    --gold: #ffd60a;
-    --green: #00e676;
-    --border: rgba(255,255,255,0.07);
-    --text: #eef0f4;
-    --muted: #5a6070;
+    --bg: #ffffff;
+    --bg2: #ffffff;
+    --bg3: #f3f4f6;
+    --accent: #6aaa64;
+    --danger: #d64550;
+    --gold: #c9a227;
+    --green: #6aaa64;
+    --border: #d3d6da;
+    --text: #1a1a1b;
+    --muted: #787c7e;
   }
 
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Libre Franklin', sans-serif;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -44,7 +44,7 @@
     content: '';
     position: fixed;
     inset: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0,229,255,0.06) 0%, transparent 70%);
+    background: none;
     pointer-events: none;
     z-index: 0;
   }
@@ -54,7 +54,7 @@
     position: fixed;
     bottom: 0; left: 0; right: 0;
     height: 300px;
-    background: radial-gradient(ellipse 60% 100% at 50% 100%, rgba(255,45,85,0.05) 0%, transparent 70%);
+    background: none;
     pointer-events: none;
     z-index: 0;
   }
@@ -78,10 +78,10 @@
   }
 
   .logo {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 27px;
     letter-spacing: 1px;
-    color: #fff;
+    color: var(--text);
     line-height: 1;
   }
 
@@ -94,9 +94,8 @@
     content: '';
     position: absolute;
     bottom: -2px; left: 0; right: 0;
-    height: 2px;
+    height: 3px;
     background: var(--accent);
-    box-shadow: 0 0 8px var(--accent);
   }
 
   .header-meta {
@@ -113,7 +112,7 @@
   }
 
   .q-tag {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 18px;
     letter-spacing: 1px;
     color: var(--accent);
@@ -140,7 +139,6 @@
     top: 0; left: 0;
     width: 3px; height: 100%;
     background: var(--accent);
-    box-shadow: 0 0 12px var(--accent);
   }
 
   .score-group { display: flex; flex-direction: column; gap: 2px; }
@@ -154,7 +152,7 @@
   }
 
   .score-num {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 38px;
     line-height: 1;
     transition: color 0.3s ease;
@@ -165,7 +163,7 @@
   .score-num.negative { color: var(--danger); }
 
   .score-max {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 16px;
     color: var(--muted);
   }
@@ -184,8 +182,8 @@
     transition: all 0.25s ease;
   }
 
-  .dot.active { border-color: var(--accent); box-shadow: 0 0 6px var(--accent); }
-  .dot.correct { background: var(--green); border-color: var(--green); box-shadow: 0 0 6px var(--green); }
+  .dot.active { border-color: var(--accent); }
+  .dot.correct { background: var(--green); border-color: var(--green); }
   .dot.wrong { background: var(--danger); border-color: var(--danger); }
 
   /* QUESTION CARD */
@@ -209,8 +207,8 @@
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+    height: 0;
+    background: none;
   }
 
   .q-num-label {
@@ -218,17 +216,16 @@
     font-weight: 700;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--muted);
     margin-bottom: 12px;
-    opacity: 0.7;
   }
 
   .q-text {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    letter-spacing: 0.5px;
-    line-height: 1.15;
-    color: #fff;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
+    font-size: 26px;
+    letter-spacing: -0.2px;
+    line-height: 1.2;
+    color: var(--text);
     margin-bottom: 22px;
   }
 
@@ -244,7 +241,7 @@
     border-radius: 10px;
     padding: 13px 14px;
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Libre Franklin', sans-serif;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
@@ -254,31 +251,31 @@
   }
 
   .opt:hover:not(:disabled) {
-    border-color: rgba(0,229,255,0.35);
-    background: rgba(0,229,255,0.05);
-    transform: translateY(-1px);
+    border-color: #878a8c;
+    background: #eef0f2;
   }
 
   .opt:disabled { cursor: default; }
 
   .opt.correct {
-    background: rgba(0,230,118,0.12);
+    background: var(--green);
     border-color: var(--green);
-    color: var(--green);
-    font-weight: 600;
+    color: #fff;
+    font-weight: 700;
   }
 
   .opt.wrong {
-    background: rgba(255,45,85,0.08);
-    border-color: rgba(255,45,85,0.3);
-    color: var(--danger);
-    opacity: 0.7;
+    background: var(--danger);
+    border-color: var(--danger);
+    color: #fff;
+    font-weight: 700;
   }
 
   .opt.reveal {
-    background: rgba(0,230,118,0.05);
-    border-color: rgba(0,230,118,0.25);
-    color: rgba(0,230,118,0.6);
+    background: #eef6ed;
+    border-color: var(--green);
+    color: #43803d;
+    font-weight: 700;
   }
 
   /* BET SECTION */
@@ -338,7 +335,7 @@
   }
 
   .bet-num {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 28px;
     line-height: 1;
     color: var(--text);
@@ -362,10 +359,10 @@
   .bet-btn:hover:not(:disabled) { transform: translateY(-2px); }
 
   .bet-btn.b1:hover:not(:disabled), .bet-btn.b1.sel {
-    border-color: #4dd0e1;
-    background: rgba(77,208,225,0.08);
+    border-color: #3a7ca5;
+    background: rgba(58,124,165,0.08);
   }
-  .bet-btn.b1.sel .bet-num { color: #4dd0e1; }
+  .bet-btn.b1.sel .bet-num { color: #3a7ca5; }
 
   .bet-btn.b2:hover:not(:disabled), .bet-btn.b2.sel {
     border-color: var(--gold);
@@ -411,7 +408,7 @@
   }
 
   .flash-top {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 20px;
     letter-spacing: 1px;
     margin-bottom: 4px;
@@ -429,18 +426,17 @@
     border: none;
     border-radius: 10px;
     padding: 15px;
-    color: #000;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    letter-spacing: 2px;
+    color: #fff;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
+    font-size: 19px;
+    letter-spacing: 0.5px;
     cursor: pointer;
     display: none;
     transition: all 0.15s ease;
-    box-shadow: 0 0 20px rgba(0,229,255,0.2);
   }
 
   .next-btn.show { display: block; animation: flashIn 0.25s ease; }
-  .next-btn:hover { background: #33ecff; transform: translateY(-1px); box-shadow: 0 0 28px rgba(0,229,255,0.35); }
+  .next-btn:hover { background: #5d9657; }
 
   /* RESULTS */
   .results {
@@ -459,7 +455,7 @@
   }
 
   .result-label {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 64px;
     letter-spacing: 2px;
     line-height: 1;
@@ -490,21 +486,21 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 60% 60% at 50% 100%, rgba(0,229,255,0.05) 0%, transparent 70%);
+    background: none;
   }
 
   .final-num {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 80px;
     line-height: 1;
   }
 
-  .final-num.pos { color: var(--green); text-shadow: 0 0 30px rgba(0,230,118,0.3); }
-  .final-num.neg { color: var(--danger); text-shadow: 0 0 30px rgba(255,45,85,0.3); }
+  .final-num.pos { color: var(--green); }
+  .final-num.neg { color: var(--danger); }
   .final-num.zero { color: var(--text); }
 
   .final-denom {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 20px;
     color: var(--muted);
     letter-spacing: 1px;
@@ -536,14 +532,14 @@
   }
 
   .brow-bet {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 16px;
     min-width: 28px;
     text-align: center;
   }
 
   .brow-result {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 18px;
     min-width: 40px;
     text-align: right;
@@ -558,17 +554,16 @@
     border: none;
     border-radius: 10px;
     padding: 17px;
-    color: #000;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    letter-spacing: 2px;
+    color: #fff;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 0.5px;
     cursor: pointer;
     transition: all 0.15s ease;
     margin-bottom: 10px;
-    box-shadow: 0 0 24px rgba(0,229,255,0.2);
   }
 
-  .share-btn:hover { background: #33ecff; transform: translateY(-1px); }
+  .share-btn:hover { background: #5d9657; }
 
   .reset-btn {
     background: transparent;
@@ -576,7 +571,7 @@
     border-radius: 10px;
     padding: 12px;
     color: var(--muted);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Libre Franklin', sans-serif;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
@@ -597,13 +592,12 @@
   }
 
   .countdown {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 40px;
     letter-spacing: 3px;
-    color: var(--accent);
+    color: var(--text);
     text-align: center;
     margin-top: 4px;
-    text-shadow: 0 0 16px rgba(0,229,255,0.3);
   }
 
   /* ACCOUNT BAR */
@@ -634,7 +628,7 @@
     color: var(--accent);
     border-radius: 8px;
     padding: 7px 14px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Libre Franklin', sans-serif;
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.5px;
@@ -642,7 +636,7 @@
     white-space: nowrap;
     transition: all 0.15s;
   }
-  .account-btn:hover { background: var(--accent); color: #000; }
+  .account-btn:hover { background: var(--accent); color: #fff; }
 
   /* AUTH MODAL */
   .auth-modal {
@@ -665,10 +659,10 @@
     padding: 26px 22px;
   }
   .auth-title {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 30px;
     letter-spacing: 1px;
-    color: #fff;
+    color: var(--text);
     margin-bottom: 6px;
   }
   .auth-sub {
@@ -684,7 +678,7 @@
     border-radius: 10px;
     padding: 13px 14px;
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Libre Franklin', sans-serif;
     font-size: 15px;
     margin-bottom: 10px;
   }
@@ -695,14 +689,14 @@
     border: none;
     border-radius: 10px;
     padding: 14px;
-    color: #000;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 19px;
-    letter-spacing: 1.5px;
+    color: #fff;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
+    font-size: 17px;
+    letter-spacing: 0.3px;
     cursor: pointer;
     margin-top: 4px;
   }
-  .auth-send:hover { background: #33ecff; }
+  .auth-send:hover { background: #5d9657; }
   .auth-msg { font-size: 13px; color: var(--green); margin-top: 12px; text-align: center; min-height: 18px; }
   .auth-msg.err { color: var(--danger); }
   .auth-close {
@@ -710,7 +704,7 @@
     background: transparent;
     border: none;
     color: var(--muted);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Libre Franklin', sans-serif;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
@@ -728,9 +722,9 @@
     background: var(--bg3);
     margin-bottom: 6px;
   }
-  .lb-row.me { border: 1px solid var(--accent); background: rgba(0,229,255,0.06); }
+  .lb-row.me { border: 1px solid var(--accent); background: rgba(106,170,100,0.10); }
   .lb-rank {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 18px;
     color: var(--muted);
     min-width: 26px;
@@ -739,7 +733,7 @@
   .lb-name { flex: 1; font-size: 13px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .lb-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; }
   .lb-score {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 20px;
     min-width: 34px;
     text-align: right;
@@ -756,7 +750,7 @@
     transform: translateX(-50%) translateY(70px);
     background: var(--green);
     color: #000;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 17px;
     letter-spacing: 1px;
     padding: 11px 24px;
@@ -826,7 +820,7 @@
   }
 
   .streak-num {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 36px;
     line-height: 1;
     color: var(--accent);
@@ -866,7 +860,7 @@
   }
 
   .dist-label {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 14px;
     color: var(--muted);
     min-width: 44px;
@@ -900,7 +894,7 @@
   }
 
   .dist-bar-count {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Libre Franklin', sans-serif; font-weight: 800;
     font-size: 13px;
     color: #000;
     line-height: 1;
@@ -1649,16 +1643,16 @@ function getVerdict() {
   const allHighBet = history.every(h => h.bet === 3);
   const allLowBet = history.every(h => h.bet === 1);
 
-  if (allCorrect && allHighBet) return { label: "SICKO MODE", desc: "5/5 correct + all locks called", color: "#ffd60a" };
-  if (allCorrect) return { label: "CLEAN SHEET", desc: "Perfect — no misses", color: "#00e676" };
-  if (score >= 11) return { label: "SHARP", desc: "Elite football IQ", color: "#00e5ff" };
-  if (score >= 7) return { label: "SOLID", desc: "Knows the game", color: "#4dd0e1" };
-  if (score >= 3) return { label: "CASUAL", desc: "Fan, not a student", color: "#888" };
-  if (score <= 0 && highBetWrong) return { label: "BLITZED", desc: "Got cooked on your locks", color: "#ff2d55" };
-  if (allWrong) return { label: "ROOKIE", desc: "Study the tape", color: "#ff2d55" };
-  if (score < 0) return { label: "IN THE RED", desc: "Confidence exceeded knowledge", color: "#ff2d55" };
-  if (allLowBet && allCorrect) return { label: "SANDBAGGING", desc: "All correct, no guts", color: "#888" };
-  return { label: "AVERAGE", desc: "Middle of the depth chart", color: "#888" };
+  if (allCorrect && allHighBet) return { label: "SICKO MODE", desc: "5/5 correct + all locks called", color: "#b8901f" };
+  if (allCorrect) return { label: "CLEAN SHEET", desc: "Perfect — no misses", color: "#3a8a34" };
+  if (score >= 11) return { label: "SHARP", desc: "Elite football IQ", color: "#2f6fb3" };
+  if (score >= 7) return { label: "SOLID", desc: "Knows the game", color: "#3a7ca5" };
+  if (score >= 3) return { label: "CASUAL", desc: "Fan, not a student", color: "#787c7e" };
+  if (score <= 0 && highBetWrong) return { label: "BLITZED", desc: "Got cooked on your locks", color: "#d64550" };
+  if (allWrong) return { label: "ROOKIE", desc: "Study the tape", color: "#d64550" };
+  if (score < 0) return { label: "IN THE RED", desc: "Confidence exceeded knowledge", color: "#d64550" };
+  if (allLowBet && allCorrect) return { label: "SANDBAGGING", desc: "All correct, no guts", color: "#787c7e" };
+  return { label: "AVERAGE", desc: "Middle of the depth chart", color: "#787c7e" };
 }
 
 // Countdown to next midnight ET, shown on the results screen
@@ -1717,7 +1711,7 @@ function showResults() {
     const h = history[i];
     const row = document.createElement('div');
     row.className = 'brow';
-    const betColor = h.bet === 1 ? '#4dd0e1' : h.bet === 2 ? '#ffd60a' : '#ff2d55';
+    const betColor = h.bet === 1 ? '#3a7ca5' : h.bet === 2 ? '#b8901f' : '#d64550';
     row.innerHTML = `
       <div class="brow-q">${q.q.length > 60 ? q.q.slice(0,57) + '…' : q.q}</div>
       <div class="brow-bet" style="color:${betColor}">${h.bet}pt</div>
