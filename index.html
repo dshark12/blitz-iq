@@ -1725,11 +1725,19 @@ function showResults() {
   });
 }
 
+function getPuzzleNumber() {
+  // Launch day (Jun 8 2026) = puzzle #1, counts up daily from there
+  const launch = new Date(2026, 5, 8); launch.setHours(0, 0, 0, 0);
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  return Math.floor((today - launch) / 86400000) + 1;
+}
+
 function doShare() {
-  const { label } = getVerdict();
-  const d = new Date().toLocaleDateString('en-US', {month:'short', day:'numeric'});
-  const rows = history.map(h => `${h.correct ? '🟩' : '🟥'} ${h.bet}pt`).join('  ');
-  const text = `Blitz IQ — ${d}\n${label} | ${score}/15\n\n${rows}\n\nblitziq.com`;
+  const n = getPuzzleNumber();
+  const keycaps = { 1: '1️⃣', 2: '2️⃣', 3: '3️⃣' };
+  const squares = history.map(h => h.correct ? '🟩' : '🟥').join('');
+  const betsRow = history.map(h => keycaps[h.bet]).join('');
+  const text = `Blitz IQ #${n} ${score}/15\n\n${squares}\n${betsRow}\n\nblitz-iq.vercel.app`;
   navigator.clipboard.writeText(text).then(() => {
     const t = document.getElementById('toast');
     t.classList.add('show');
