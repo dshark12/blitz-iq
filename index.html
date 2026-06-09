@@ -1248,20 +1248,19 @@ function getDailyQuestions() {
   // Pools by difficulty + era. "modern" = 2000s and up, "classic" = earlier.
   const pool = (diff, era, seed) =>
     fixedShuffle(QUESTION_BANK.filter(q => q.diff === diff && q.era === era), seed);
-  const easyModern  = pool('easy',   'modern',  1001);
-  const easyClassic = pool('easy',   'classic', 1002);
   const medModern   = pool('medium', 'modern',  2002);
+  const medClassic  = pool('medium', 'classic', 2003);
   const hardModern  = pool('hard',   'modern',  3003);
 
-  // Daily ramp: 2 easy-modern, 1 medium-modern, 1 easy-classic, then 1 hard-modern.
-  // Fixed order (no shuffle) so difficulty eases players in before the hard finish.
-  const em1 = easyModern[(dayNum * 2)     % easyModern.length];
-  const em2 = easyModern[(dayNum * 2 + 1) % easyModern.length];
-  const mm  = medModern[dayNum % medModern.length];
-  const ec  = easyClassic[dayNum % easyClassic.length];
+  // Daily ramp: 3 medium-modern, 1 medium-older (the curveball), then 1 hard-modern.
+  // No easy questions. Fixed order so the hard question always finishes the set.
+  const mm1 = medModern[(dayNum * 3)     % medModern.length];
+  const mm2 = medModern[(dayNum * 3 + 1) % medModern.length];
+  const mm3 = medModern[(dayNum * 3 + 2) % medModern.length];
+  const mc  = medClassic[dayNum % medClassic.length];
   const hm  = hardModern[dayNum % hardModern.length];
 
-  return [em1, em2, mm, ec, hm];
+  return [mm1, mm2, mm3, mc, hm];
 }
 
 const QUESTIONS = getDailyQuestions();
