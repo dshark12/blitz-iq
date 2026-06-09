@@ -532,14 +532,27 @@
   }
 
   .brow {
-    display: flex;
-    align-items: center;
     background: var(--bg2);
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 11px 14px;
-    gap: 10px;
+    cursor: pointer;
   }
+  .brow-summary { display: flex; align-items: center; gap: 10px; }
+  .brow-chev { color: var(--muted); font-size: 11px; transition: transform 0.2s ease; }
+  .brow.open .brow-chev { transform: rotate(90deg); }
+  .brow-detail { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .brow.open .brow-detail { display: block; }
+  .bd-q { font-size: 13px; color: var(--text); font-weight: 600; line-height: 1.35; margin-bottom: 10px; }
+  .bd-opt {
+    font-size: 13px; padding: 8px 11px; border-radius: 7px; margin-bottom: 5px;
+    background: var(--bg3); color: var(--text); border: 1px solid var(--border);
+  }
+  .bd-opt.correct { background: #eef2fe; border-color: var(--accent); color: #1d4ed8; font-weight: 600; }
+  .bd-opt.wrong { background: rgba(214,69,80,0.08); border-color: var(--danger); color: var(--danger); font-weight: 600; }
+  .bd-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.5px; }
+  .bd-fact { font-size: 12px; color: var(--muted); margin-top: 9px; line-height: 1.45; }
+  .bd-hint { font-size: 11px; color: var(--muted); text-align: center; margin-bottom: 8px; }
 
   .brow-q {
     flex: 1;
@@ -1601,7 +1614,7 @@ function pickAnswer(i) {
   const delta = correct ? bet : -bet;
   score += delta;
 
-  history.push({ correct, bet, delta, q: q.q });
+  history.push({ correct, bet, delta, q: q.q, picked: i });
 
   // Style options
   const opts = document.querySelectorAll('.opt');
@@ -1723,17 +1736,38 @@ function showResults() {
   fn.className = 'final-num ' + (score > 0 ? 'pos' : score < 0 ? 'neg' : 'zero');
 
   const bl = document.getElementById('breakdownList');
-  bl.innerHTML = '';
+  bl.innerHTML = '<div class="bd-hint">Tap a question to see the answer</div>';
   QUESTIONS.forEach((q, i) => {
     const h = history[i];
+    const picked = (h && h.picked != null) ? h.picked : null;
+    const betColor = h.bet === 1 ? '#3a7ca5' : h.bet === 2 ? '#b8901f' : '#d64550';
+    const optsHtml = q.opts.map((o, idx) => {
+      let cls = 'bd-opt', tag = '';
+      if (idx === q.ans) {
+        cls += ' correct';
+        tag = (idx === picked) ? ' <span class="bd-tag">✓ YOUR PICK</span>' : ' <span class="bd-tag">✓ CORRECT</span>';
+      } else if (idx === picked) {
+        cls += ' wrong';
+        tag = ' <span class="bd-tag">✗ YOUR PICK</span>';
+      }
+      return `<div class="${cls}">${o}${tag}</div>`;
+    }).join('');
     const row = document.createElement('div');
     row.className = 'brow';
-    const betColor = h.bet === 1 ? '#3a7ca5' : h.bet === 2 ? '#b8901f' : '#d64550';
     row.innerHTML = `
-      <div class="brow-q">${q.q.length > 60 ? q.q.slice(0,57) + '…' : q.q}</div>
-      <div class="brow-bet" style="color:${betColor}">${h.bet}pt</div>
-      <div class="brow-result ${h.correct ? 'pos' : 'neg'}">${h.correct ? '+' + h.bet : '−' + h.bet}</div>
+      <div class="brow-summary">
+        <div class="brow-q">${q.q.length > 50 ? q.q.slice(0,47) + '…' : q.q}</div>
+        <div class="brow-bet" style="color:${betColor}">${h.bet}pt</div>
+        <div class="brow-result ${h.correct ? 'pos' : 'neg'}">${h.correct ? '+' + h.bet : '−' + h.bet}</div>
+        <div class="brow-chev">▶</div>
+      </div>
+      <div class="brow-detail">
+        <div class="bd-q">${q.q}</div>
+        ${optsHtml}
+        <div class="bd-fact">${q.fact}</div>
+      </div>
     `;
+    row.querySelector('.brow-summary').onclick = () => row.classList.toggle('open');
     bl.appendChild(row);
   });
 }
