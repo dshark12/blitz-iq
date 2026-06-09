@@ -1744,7 +1744,7 @@ function doShare() {
   const keycaps = { 1: '1️⃣', 2: '2️⃣', 3: '3️⃣' };
   const squares = history.map(h => h.correct ? '🟩' : '🟥').join('');
   const betsRow = history.map(h => keycaps[h.bet]).join('');
-  const text = `Two-Minute Drill #${n} ${score}/15\n\n${squares}\n${betsRow}\n\ntwominutedrill.app`;
+  const text = `Two-Minute Drill #${n} ${score}/15\n\n${squares}\n${betsRow}\n\nhttps://twominutedrill.app`;
   navigator.clipboard.writeText(text).then(() => {
     const t = document.getElementById('toast');
     t.classList.add('show');
